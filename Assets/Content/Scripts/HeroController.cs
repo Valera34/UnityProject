@@ -11,37 +11,106 @@ public class HeroController : MonoBehaviour {
     public float JumpSpeed = 2f;
     Rigidbody2D myBody = null;
     // Use this for initialization
+    Transform heroParent = null;
     void Start()
     {
+        this.heroParent = this.transform.parent;
         LevelController.current.setStartPosition(transform.position);
         myBody = this.GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
-    void Update () {
-        float value = Input.GetAxis("Horizontal");
-        Animator animator = GetComponent<Animator>();
+    bool big = false;
+    public void Scale()
+    {
+       
+        if (!big) { 
+        Vector2 vel = myBody.velocity;
+        vel = this.transform.localScale *= 2;
+        myBody.velocity = vel;
+            big = true;
+        }
         
-        if (this.isGrounded)
+    }
+    bool bang = false;
+    public void Explosion()
+    {
+
+        if (big)
+        {
+            Vector2 vel = myBody.velocity;
+            vel = this.transform.localScale /= 2;
+            myBody.velocity = vel;
+            big = false;
+        }
+        else
+        {
+            bang = true;
+        }
+
+    }
+    static void SetNewParent(Transform obj, Transform new_parent)
+    {
+        if (obj.transform.parent != new_parent)
+        {
+            //Засікаємо позицію у Глобальних координатах
+            Vector3 pos = obj.transform.position;
+            //Встановлюємо нового батька
+            obj.transform.parent = new_parent;
+            //Після зміни батька координати кролика зміняться
+            //Оскільки вони тепер відносно іншого об’єкта
+            //повертаємо кролика в ті самі глобальні координати
+            obj.transform.position = pos;
+        }
+    }
+    float t = 1.1f;
+    // Update is called once per frame
+    void Update() {
+        float value = 0;
+        if (!bang) { 
+         value = Input.GetAxis("Horizontal");
+    }
+        Animator animator = GetComponent<Animator>();
+        if (bang)
         {
             animator.SetBool("jump", false);
+            animator.SetBool("death", true);
+        t -= Time.deltaTime;
+            if (t <= 0)
+            {
+                animator.SetBool("death", false);
+                HeroController rabit = GetComponent<HeroController>();
+                LevelController.current.onRabitDeath(rabit);
+                bang = false;
+                t = 1.1f;
+            }
         }
-        else
+        if (!bang)
         {
-            animator.SetBool("jump", true);
+            if (this.isGrounded)
+            {
+                animator.SetBool("jump", false);
+            }
+            else
+            {
+                animator.SetBool("jump", true);
+            }
         }
-        if (Mathf.Abs(value) > 0&& this.isGrounded)
-        {
-            animator.SetBool("run", true);
-        }
-        else
-        {
-            animator.SetBool("run", false);
-        }
+            if (Mathf.Abs(value) > 0 && this.isGrounded)
+            {
+                animator.SetBool("run", true);
+            }
+            else
+            {
+                animator.SetBool("run", false);
+            }
+        
     }
     void FixedUpdate()
     {
-        float value = Input.GetAxis("Horizontal");
+        float value = 0;
+        if (!bang)
+        {
+            value = Input.GetAxis("Horizontal");
+        }
         if (Mathf.Abs(value) > 0)
         {
             Vector2 vel = myBody.velocity;
@@ -70,12 +139,29 @@ public class HeroController : MonoBehaviour {
         {
             isGrounded = false;
         }
-       
-        Debug.DrawLine(from, to, Color.red);
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (hit)
         {
-            this.JumpActive = true;
+            //Перевіряємо чи ми опинились на платформі
+            if (hit.transform != null
+            && hit.transform.GetComponent<MovingPlatform>() != null)
+            {
+                //Приліпаємо до платформи
+                SetNewParent(this.transform, hit.transform);
+            }
         }
+        else
+        {
+            //Ми в повітрі відліпаємо під платформи
+            SetNewParent(this.transform, this.heroParent);
+        }
+        Debug.DrawLine(from, to, Color.red);
+        if (!bang)
+        {
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
+                this.JumpActive = true;
+            }
+        
         if (this.JumpActive)
         {
             //Якщо кнопку ще тримають
@@ -94,6 +180,7 @@ public class HeroController : MonoBehaviour {
                 this.JumpActive = false;
                 this.JumpTime = 0;
             }
+        }
         }
     }
 }
