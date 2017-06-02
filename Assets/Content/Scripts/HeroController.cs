@@ -12,6 +12,11 @@ public class HeroController : MonoBehaviour {
     Rigidbody2D myBody = null;
     // Use this for initialization
     Transform heroParent = null;
+    public static HeroController lastRabit = null;
+    void Awake()
+    {
+        lastRabit = this;
+    }
     void Start()
     {
         this.heroParent = this.transform.parent;
@@ -65,7 +70,7 @@ public class HeroController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         float value = 0;
-        if (!bang) { 
+        if (!bang&&!GreenOrk.col&&!BrownOrk.col) { 
          value = Input.GetAxis("Horizontal");
     }
         Animator animator = GetComponent<Animator>();
@@ -102,10 +107,53 @@ public class HeroController : MonoBehaviour {
             {
                 animator.SetBool("run", false);
             }
+        Vector3 from = transform.position;
+        Vector3 to = transform.position;
+        int layer_id = 1 << LayerMask.NameToLayer("Ork");
+
+        RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
         
+        if (hit)
+        {
+            
+
+
+            /* animator.SetBool("jump", false);
+             animator.SetBool("death", true);
+             t -= Time.deltaTime;
+             if (t <= 0)
+             {
+
+                 animator.SetBool("death", false);
+                 HeroController rabit = GetComponent<HeroController>();
+                 LevelController.current.onRabitDeath(rabit);
+                 t = 1.1f;
+             }*/
+        }
+        if (GreenOrk.col|| BrownOrk.col)
+        {
+            animator.SetBool("jump", false);
+            animator.SetBool("death", true);
+            t -= Time.deltaTime;
+            if (t <= 0)
+            {
+                animator.SetBool("death", false);
+                HeroController rabit = GetComponent<HeroController>();
+                LevelController.current.onRabitDeath(rabit);
+                bang = false;
+                GreenOrk.col = false;
+                BrownOrk.col = false;
+                t = 1.1f;
+            }
+            
+        }
     }
+
+    public static Vector3 my_pos;
+
     void FixedUpdate()
     {
+        
         float value = 0;
         if (!bang)
         {
@@ -117,6 +165,7 @@ public class HeroController : MonoBehaviour {
             vel.x = value * speed;
             myBody.velocity = vel;
         }
+        my_pos = this.transform.position;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (value < 0)
         {

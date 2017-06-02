@@ -22,5 +22,8 @@ public class Collectable : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
-}
+    void FixedUpdate()
+    {
+    }
+    }
 
