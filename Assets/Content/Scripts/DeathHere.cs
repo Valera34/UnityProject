@@ -24,6 +24,8 @@ public class DeathHere : MonoBehaviour
         if (rabit != null)
         {
             LevelController.current.onRabitDeath(rabit);
+            HeroController.life--;
+            HeroController.Health();
         }
     }
 }

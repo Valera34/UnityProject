@@ -12,9 +12,11 @@ public class Collectable : MonoBehaviour
      //   if (!this.hideAnimation)
         //{
             HeroController rabit = collider.GetComponent<HeroController>();
-            if (rabit != null)
+        
+        if (rabit != null)
             {
-                this.OnRabitHit(rabit);
+            
+            this.OnRabitHit(rabit);
             }
       //  }
     }

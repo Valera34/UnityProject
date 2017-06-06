@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class HeroController : MonoBehaviour {
     public float speed = 3;
     bool isGrounded = false;
@@ -9,14 +9,17 @@ public class HeroController : MonoBehaviour {
     float JumpTime = 0f;
     public float MaxJumpTime = 2f;
     public float JumpSpeed = 2f;
+    public static float life = 3f;
     Rigidbody2D myBody = null;
     // Use this for initialization
     Transform heroParent = null;
     public static HeroController lastRabit = null;
     void Awake()
     {
+        l = GameObject.FindGameObjectsWithTag("Fruit").Length;
         lastRabit = this;
     }
+    public static float l;
     void Start()
     {
         this.heroParent = this.transform.parent;
@@ -49,6 +52,7 @@ public class HeroController : MonoBehaviour {
         else
         {
             bang = true;
+           
         }
 
     }
@@ -66,39 +70,85 @@ public class HeroController : MonoBehaviour {
             obj.transform.position = pos;
         }
     }
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        Vector3 my_pos2 = this.transform.position;
+        if (collider.gameObject.name == "Room")
+        {
+            SceneManager.LoadScene("Level1");
+
+        }
+        if (collider.gameObject.name == "Room (1)")
+        {
+            SceneManager.LoadScene("Level2");
+
+        }
+        GameObject h;
+        if (collider.gameObject.name == "RedCrystal")
+        {
+            h = GameObject.Find("CrystalEmpty");
+            Destroy(h.gameObject);
+        }
+        if (collider.gameObject.name == "BlueCrystal")
+        {
+            h = GameObject.Find("CrystalEmpty2");
+
+            Destroy(h.gameObject);
+
+        }
+        if (collider.gameObject.name == "GreenCrystal")
+        {
+            h = GameObject.Find("CrystalEmpty3");
+            Destroy(h.gameObject);
+
+        }
+    }
     float t = 1.1f;
     // Update is called once per frame
+   
     void Update() {
-        float value = 0;
-        if (!bang&&!GreenOrk.col&&!BrownOrk.col) { 
-         value = Input.GetAxis("Horizontal");
-    }
+        Scene scene = SceneManager.GetActiveScene();
+        string s=scene.name; // name of scene
         Animator animator = GetComponent<Animator>();
-        if (bang)
+        if (s=="MainScene")
         {
-            animator.SetBool("jump", false);
-            animator.SetBool("death", true);
-        t -= Time.deltaTime;
-            if (t <= 0)
-            {
-                animator.SetBool("death", false);
-                HeroController rabit = GetComponent<HeroController>();
-                LevelController.current.onRabitDeath(rabit);
-                bang = false;
-                t = 1.1f;
-            }
+            animator.SetBool("idle", true);
         }
-        if (!bang)
+        else
         {
-            if (this.isGrounded)
+            float value = 0;
+            if (!bang && !GreenOrk.col && !BrownOrk.col)
+            {
+                value = Input.GetAxis("Horizontal");
+            }
+
+            if (bang)
             {
                 animator.SetBool("jump", false);
+                animator.SetBool("death", true);
+                t -= Time.deltaTime;
+                if (t <= 0)
+                {
+                    animator.SetBool("death", false);
+                    HeroController rabit = GetComponent<HeroController>();
+                    LevelController.current.onRabitDeath(rabit);
+                    bang = false;
+                    t = 1.1f;
+                    life--;
+                    Health();
+                }
             }
-            else
+            if (!bang)
             {
-                animator.SetBool("jump", true);
+                if (this.isGrounded)
+                {
+                    animator.SetBool("jump", false);
+                }
+                else
+                {
+                    animator.SetBool("jump", true);
+                }
             }
-        }
             if (Mathf.Abs(value) > 0 && this.isGrounded)
             {
                 animator.SetBool("run", true);
@@ -107,129 +157,158 @@ public class HeroController : MonoBehaviour {
             {
                 animator.SetBool("run", false);
             }
-        Vector3 from = transform.position;
-        Vector3 to = transform.position;
-        int layer_id = 1 << LayerMask.NameToLayer("Ork");
+            Vector3 from = transform.position;
+            Vector3 to = transform.position;
+            int layer_id = 1 << LayerMask.NameToLayer("Ork");
 
-        RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
-        
-        if (hit)
-        {
-            
+            RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
 
-
-            /* animator.SetBool("jump", false);
-             animator.SetBool("death", true);
-             t -= Time.deltaTime;
-             if (t <= 0)
-             {
-
-                 animator.SetBool("death", false);
-                 HeroController rabit = GetComponent<HeroController>();
-                 LevelController.current.onRabitDeath(rabit);
-                 t = 1.1f;
-             }*/
-        }
-        if (GreenOrk.col|| BrownOrk.col)
-        {
-            animator.SetBool("jump", false);
-            animator.SetBool("death", true);
-            t -= Time.deltaTime;
-            if (t <= 0)
+            if (hit)
             {
-                animator.SetBool("death", false);
-                HeroController rabit = GetComponent<HeroController>();
-                LevelController.current.onRabitDeath(rabit);
-                bang = false;
-                GreenOrk.col = false;
-                BrownOrk.col = false;
-                t = 1.1f;
+
+
+
+                /* animator.SetBool("jump", false);
+                 animator.SetBool("death", true);
+                 t -= Time.deltaTime;
+                 if (t <= 0)
+                 {
+
+                     animator.SetBool("death", false);
+                     HeroController rabit = GetComponent<HeroController>();
+                     LevelController.current.onRabitDeath(rabit);
+                     t = 1.1f;
+                 }*/
             }
-            
+            if (GreenOrk.col || BrownOrk.col)
+            {
+                animator.SetBool("jump", false);
+                animator.SetBool("death", true);
+                t -= Time.deltaTime;
+                if (t <= 0)
+                {
+                    animator.SetBool("death", false);
+                    HeroController rabit = GetComponent<HeroController>();
+                    LevelController.current.onRabitDeath(rabit);
+                    bang = false;
+                    GreenOrk.col = false;
+                    BrownOrk.col = false;
+                    t = 1.1f;
+                    life--;
+                    Health();
+                }
+
+            }
         }
     }
 
     public static Vector3 my_pos;
+    public static void Health()
+    {
+        GameObject h;
+        if (life == 2)
+        {
+            h = GameObject.Find("Heart3");
+            Destroy(h.gameObject);
 
+        }
+        if (life == 1)
+        {
+            h = GameObject.Find("Heart2");
+            Destroy(h.gameObject);
+
+        }
+        if (life == 0)
+        {
+            h = GameObject.Find("Heart");
+            Destroy(h.gameObject);
+            SceneManager.LoadScene("ChooseLevel");
+            life = 3;
+        }
+    }
     void FixedUpdate()
     {
-        
-        float value = 0;
-        if (!bang)
+        Scene scene = SceneManager.GetActiveScene();
+        string s = scene.name; // name of scene
+        if (s != "MainScene")
         {
-            value = Input.GetAxis("Horizontal");
-        }
-        if (Mathf.Abs(value) > 0)
-        {
-            Vector2 vel = myBody.velocity;
-            vel.x = value * speed;
-            myBody.velocity = vel;
-        }
-        my_pos = this.transform.position;
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        if (value < 0)
-        {
-            sr.flipX = true;
-        }
-        else if (value > 0)
-        {
-            sr.flipX = false;
-        }
-        Vector3 from = transform.position + Vector3.up * 0.3f;
-        Vector3 to = transform.position + Vector3.down * 0.1f;
-        int layer_id = 1 << LayerMask.NameToLayer("Ground");
-        
-        RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
-        if (hit)
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-        if (hit)
-        {
-            //Перевіряємо чи ми опинились на платформі
-            if (hit.transform != null
-            && hit.transform.GetComponent<MovingPlatform>() != null)
+            float value = 0;
+            if (!bang)
             {
-                //Приліпаємо до платформи
-                SetNewParent(this.transform, hit.transform);
+                value = Input.GetAxis("Horizontal");
             }
-        }
-        else
-        {
-            //Ми в повітрі відліпаємо під платформи
-            SetNewParent(this.transform, this.heroParent);
-        }
-        Debug.DrawLine(from, to, Color.red);
-        if (!bang)
-        {
-            if (Input.GetButtonDown("Jump") && isGrounded)
+            if (Mathf.Abs(value) > 0)
             {
-                this.JumpActive = true;
+                Vector2 vel = myBody.velocity;
+                vel.x = value * speed;
+                myBody.velocity = vel;
             }
-        
-        if (this.JumpActive)
-        {
-            //Якщо кнопку ще тримають
-            if (Input.GetButton("Jump"))
+            my_pos = this.transform.position;
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            if (value < 0)
             {
-                this.JumpTime += Time.deltaTime;
-                if (this.JumpTime < this.MaxJumpTime)
+                sr.flipX = true;
+            }
+            else if (value > 0)
+            {
+                sr.flipX = false;
+            }
+            Vector3 from = transform.position + Vector3.up * 0.3f;
+            Vector3 to = transform.position + Vector3.down * 0.1f;
+            int layer_id = 1 << LayerMask.NameToLayer("Ground");
+
+            RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
+            if (hit)
+            {
+                isGrounded = true;
+            }
+            else
+            {
+                isGrounded = false;
+            }
+            if (hit)
+            {
+                //Перевіряємо чи ми опинились на платформі
+                if (hit.transform != null
+                && hit.transform.GetComponent<MovingPlatform>() != null)
                 {
-                    Vector2 vel = myBody.velocity;
-                    vel.y = JumpSpeed * (1.0f - JumpTime / MaxJumpTime);
-                    myBody.velocity = vel;
+                    //Приліпаємо до платформи
+                    SetNewParent(this.transform, hit.transform);
                 }
             }
             else
             {
-                this.JumpActive = false;
-                this.JumpTime = 0;
+                //Ми в повітрі відліпаємо під платформи
+                SetNewParent(this.transform, this.heroParent);
             }
-        }
+            Debug.DrawLine(from, to, Color.red);
+            if (!bang)
+            {
+                if (Input.GetButtonDown("Jump") && isGrounded)
+                {
+                    this.JumpActive = true;
+                }
+
+                if (this.JumpActive)
+                {
+                    //Якщо кнопку ще тримають
+                    if (Input.GetButton("Jump"))
+                    {
+                        this.JumpTime += Time.deltaTime;
+                        if (this.JumpTime < this.MaxJumpTime)
+                        {
+                            Vector2 vel = myBody.velocity;
+                            vel.y = JumpSpeed * (1.0f - JumpTime / MaxJumpTime);
+                            myBody.velocity = vel;
+                        }
+                    }
+                    else
+                    {
+                        this.JumpActive = false;
+                        this.JumpTime = 0;
+                    }
+                }
+            }
         }
     }
 }
