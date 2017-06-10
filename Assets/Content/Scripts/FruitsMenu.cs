@@ -11,7 +11,7 @@ public class FruitsMenu : MonoBehaviour {
     }
     public static bool accept2 = false;
 
-    float fruit = 0f;
+    public static float fruit = 0f;
     // Update is called once per frame
     void Update()
     {

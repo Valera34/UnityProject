@@ -13,6 +13,8 @@ public class BrownOrk : MonoBehaviour
     public Vector3 speed;
     Vector3 pointA;
     Vector3 pointB;
+    public AudioClip music = null;
+    AudioSource musicSource = null;
     bool going_to_a = false;
     public float time_to_wait = 2;
     bool ok = true;
@@ -20,7 +22,8 @@ public class BrownOrk : MonoBehaviour
     void Start()
     {
         myBody = this.GetComponent<Rigidbody2D>();
-
+        musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource.clip = music;
         this.pointA = this.transform.position;
         this.pointB = this.pointA + MoveBy;
     }
@@ -45,6 +48,10 @@ public class BrownOrk : MonoBehaviour
             if (HeroController.my_pos.y - my_pos2.y > 0.9)
             {
                 death = true;
+                if (!musicSource.isPlaying && SoundManager.Instance.isSoundOn())
+                {
+                    musicSource.Play();
+                }
             }
             else
             {

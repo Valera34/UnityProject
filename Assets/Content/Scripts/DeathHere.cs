@@ -16,6 +16,7 @@ public class DeathHere : MonoBehaviour
     {
 
     }
+    public static bool fall = false;
     void OnTriggerEnter2D(Collider2D collider)
     {
 
@@ -24,6 +25,7 @@ public class DeathHere : MonoBehaviour
         if (rabit != null)
         {
             LevelController.current.onRabitDeath(rabit);
+            fall = true;
             HeroController.life--;
             HeroController.Health();
         }

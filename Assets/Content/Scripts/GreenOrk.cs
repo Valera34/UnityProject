@@ -12,12 +12,15 @@ public class GreenOrk : MonoBehaviour {
     Vector3 pointA;
     Vector3 pointB;
     bool going_to_a = false;
+    public AudioClip music = null;
+    AudioSource musicSource = null;
     public float time_to_wait = 2;
     bool ok = true;
     float t = 0;
     void Start () {
         myBody = this.GetComponent<Rigidbody2D>();
-      
+        musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource.clip = music;
         this.pointA = this.transform.position;
         this.pointB = this.pointA + MoveBy;
     }
@@ -42,6 +45,10 @@ public class GreenOrk : MonoBehaviour {
             if (HeroController.my_pos.y - my_pos2.y>0.9)
             {
                 death = true;
+                if (!musicSource.isPlaying && SoundManager.Instance.isSoundOn())
+                {
+                    musicSource.Play();
+                }
             }
             else{
                 col = true;

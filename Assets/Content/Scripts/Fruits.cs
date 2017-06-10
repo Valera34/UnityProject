@@ -8,6 +8,7 @@ public class Fruits : Collectable
     {
 
         FruitsMenu.accept2 = true;
+        HeroController.count++;
         //  Level.current.addCoins(1);
         this.CollectedHide();
     }

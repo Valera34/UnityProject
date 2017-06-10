@@ -7,6 +7,7 @@ public class HeroController : MonoBehaviour {
     bool isGrounded = false;
     bool JumpActive = false;
     float JumpTime = 0f;
+    
     public float MaxJumpTime = 2f;
     public float JumpSpeed = 2f;
     public static float life = 3f;
@@ -14,14 +15,31 @@ public class HeroController : MonoBehaviour {
     // Use this for initialization
     Transform heroParent = null;
     public static HeroController lastRabit = null;
+    public AudioClip music = null;
+    AudioSource musicSource = null;
+    public AudioClip music2 = null;
+    AudioSource musicSource2 = null;
+    public  AudioClip music3 = null;
+    AudioSource musicSource3 = null;
+    public static float count=0;
     void Awake()
     {
         l = GameObject.FindGameObjectsWithTag("Fruit").Length;
         lastRabit = this;
+        loseLevel = false;
     }
     public static float l;
     void Start()
     {
+        life = 3;
+        SoundManager.Instance.setSoundOn(SoundManager.Instance.isSoundOn());
+        MusicManager.Instance2.setSoundOn(MusicManager.Instance2.isSoundOn());
+        musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource.clip = music;
+        musicSource2 = gameObject.AddComponent<AudioSource>();
+        musicSource2.clip = music2;
+        musicSource3 = gameObject.AddComponent<AudioSource>();
+        musicSource3.clip = music3;
         this.heroParent = this.transform.parent;
         LevelController.current.setStartPosition(transform.position);
         myBody = this.GetComponent<Rigidbody2D>();
@@ -52,7 +70,6 @@ public class HeroController : MonoBehaviour {
         else
         {
             bang = true;
-           
         }
 
     }
@@ -70,6 +87,9 @@ public class HeroController : MonoBehaviour {
             obj.transform.position = pos;
         }
     }
+    public static bool redCryst=false;
+    public static bool blueCryst = false;
+    public static bool greenCryst = false;
     void OnTriggerEnter2D(Collider2D collider)
     {
         Vector3 my_pos2 = this.transform.position;
@@ -80,25 +100,64 @@ public class HeroController : MonoBehaviour {
         }
         if (collider.gameObject.name == "Room (1)")
         {
-            SceneManager.LoadScene("Level2");
+            LevelStats st = new LevelStats();
+            string a = PlayerPrefs.GetString("stats");
+            st = JsonUtility.FromJson<LevelStats>(a);
+            if (st.levelPassed == true)
+            {
+                SceneManager.LoadScene("Level2");
+            }
 
         }
+        if (collider.gameObject.name == "Exit1")
+        {
+           
+           
+        }
+       
+       /* for (int i = 0; i < l; i++)
+         {
+        string s = "Fruit1";
+            LevelStats stats = new LevelStats();
+            string str = PlayerPrefs.GetString("stats");
+            stats = JsonUtility.FromJson<LevelStats>(str);
+            if (stats == null)
+            {
+                stats = new LevelStats();
+            }
+            stats.hasAllFruits = true;
+            string v = JsonUtility.ToJson(stats);
+            PlayerPrefs.SetString("stats", v);
+            PlayerPrefs.Save();
+            if (collider.gameObject.name == "Fruit1")
+            {
+           
+                if (!stats.collectedFruits.Contains(s))
+                {
+                    stats.collectedFruits.Add(s);
+                   
+                }
+            }
+
+            }*/
         GameObject h;
         if (collider.gameObject.name == "RedCrystal")
         {
             h = GameObject.Find("CrystalEmpty");
+            redCryst = true;
             Destroy(h.gameObject);
         }
         if (collider.gameObject.name == "BlueCrystal")
         {
             h = GameObject.Find("CrystalEmpty2");
-
+            blueCryst = true;
             Destroy(h.gameObject);
 
         }
         if (collider.gameObject.name == "GreenCrystal")
         {
             h = GameObject.Find("CrystalEmpty3");
+            greenCryst = true;
             Destroy(h.gameObject);
 
         }
@@ -107,6 +166,7 @@ public class HeroController : MonoBehaviour {
     // Update is called once per frame
    
     void Update() {
+
         Scene scene = SceneManager.GetActiveScene();
         string s=scene.name; // name of scene
         Animator animator = GetComponent<Animator>();
@@ -124,8 +184,14 @@ public class HeroController : MonoBehaviour {
 
             if (bang)
             {
+                if (!musicSource3.isPlaying&&SoundManager.Instance.isSoundOn())
+                    
+                {
+                    musicSource3.Play();
+                }
                 animator.SetBool("jump", false);
                 animator.SetBool("death", true);
+                
                 t -= Time.deltaTime;
                 if (t <= 0)
                 {
@@ -143,21 +209,27 @@ public class HeroController : MonoBehaviour {
                 if (this.isGrounded)
                 {
                     animator.SetBool("jump", false);
+                    j = false;
                 }
                 else
                 {
                     animator.SetBool("jump", true);
+                    j = true;
                 }
             }
             if (Mathf.Abs(value) > 0 && this.isGrounded)
             {
                 animator.SetBool("run", true);
+
             }
             else
             {
                 animator.SetBool("run", false);
+               
             }
-            Vector3 from = transform.position;
+          
+            
+                Vector3 from = transform.position;
             Vector3 to = transform.position;
             int layer_id = 1 << LayerMask.NameToLayer("Ork");
 
@@ -182,6 +254,10 @@ public class HeroController : MonoBehaviour {
             }
             if (GreenOrk.col || BrownOrk.col)
             {
+                if (!musicSource3.isPlaying && SoundManager.Instance.isSoundOn())
+                {
+                    musicSource3.Play();
+                }
                 animator.SetBool("jump", false);
                 animator.SetBool("death", true);
                 t -= Time.deltaTime;
@@ -199,9 +275,18 @@ public class HeroController : MonoBehaviour {
                 }
 
             }
+            if (DeathHere.fall == true)
+            {
+                if (!musicSource3.isPlaying && SoundManager.Instance.isSoundOn())
+                {
+                    musicSource3.Play();
+                }
+                DeathHere.fall = false;
+            }
+
         }
     }
-
+    public static bool loseLevel = false;
     public static Vector3 my_pos;
     public static void Health()
     {
@@ -222,12 +307,14 @@ public class HeroController : MonoBehaviour {
         {
             h = GameObject.Find("Heart");
             Destroy(h.gameObject);
-            SceneManager.LoadScene("ChooseLevel");
+            loseLevel = true;
             life = 3;
         }
     }
+    bool j = false;
     void FixedUpdate()
     {
+       
         Scene scene = SceneManager.GetActiveScene();
         string s = scene.name; // name of scene
         if (s != "MainScene")
@@ -242,6 +329,17 @@ public class HeroController : MonoBehaviour {
                 Vector2 vel = myBody.velocity;
                 vel.x = value * speed;
                 myBody.velocity = vel;
+                if (!musicSource.isPlaying && SoundManager.Instance.isSoundOn())
+                {
+                    musicSource.Play();
+                }
+            }
+            if(Mathf.Abs(value) ==0 || this.JumpActive || j)
+            {
+                if (musicSource.isPlaying)
+                {
+                    musicSource.Stop();
+                }
             }
             my_pos = this.transform.position;
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
@@ -260,10 +358,15 @@ public class HeroController : MonoBehaviour {
             RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
             if (hit)
             {
+              
                 isGrounded = true;
             }
             else
             {
+                if (SoundManager.Instance.isSoundOn())
+                {
+                    musicSource2.Play();
+                }
                 isGrounded = false;
             }
             if (hit)
@@ -288,7 +391,7 @@ public class HeroController : MonoBehaviour {
                 {
                     this.JumpActive = true;
                 }
-
+                
                 if (this.JumpActive)
                 {
                     //Якщо кнопку ще тримають
@@ -306,8 +409,10 @@ public class HeroController : MonoBehaviour {
                     {
                         this.JumpActive = false;
                         this.JumpTime = 0;
+                        
                     }
                 }
+                
             }
         }
     }

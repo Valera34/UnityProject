@@ -8,11 +8,20 @@ public class InterfaceCollect : MonoBehaviour {
     // Use this for initialization
     void Start () {
         UILabel lbl = GetComponent<UILabel>();
-        lbl.text = "0000";
+        Scene scene = SceneManager.GetActiveScene();
+        string s = scene.name; // name of scene
+        if (s == "ChooseLevel")
+        {
+            lbl.text = PlayerPrefs.GetFloat("coins", 0).ToString();
+        }
+        else
+        {
+            lbl.text = "0000";
+        }
     }
    public static bool accept = false;
     
-     float coins_quantity = 0f;
+     public static float coins_quantity = 0f;
     // Update is called once per frame
     void Update () {
           
