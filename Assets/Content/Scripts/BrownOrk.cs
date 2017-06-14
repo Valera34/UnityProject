@@ -34,8 +34,8 @@ public class BrownOrk : MonoBehaviour
         Attack
     }
     bool death = false;
-    bool walk = false;
-    public static bool attack = false;
+    bool walk = true;
+    public  bool attack = false;
 
     public static bool col = false;
     float time = 0.88f;
@@ -69,12 +69,25 @@ public class BrownOrk : MonoBehaviour
     {
 
         Animator animator = GetComponent<Animator>();
-        if (go)
+        if (attack)
+        {
+            animator.SetBool("walk", false);
+            animator.SetBool("idle", false);
+            animator.SetBool("attack", true);
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("BrownOrk-Attack") &&
+   animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f)
+            {
+                animator.SetBool("attack", false);
+
+                walk = true;
+            }
+        }
+        if (go && !attack)
         {
             animator.SetBool("walk", true);
             go = false;
         }
-        if (!walk)
+        if (!walk&&!attack)
         {
             animator.SetBool("walk", false);
             animator.SetBool("idle", true);
@@ -98,24 +111,12 @@ public class BrownOrk : MonoBehaviour
             {
                 Destroy(this.gameObject);
                 animator.SetBool("die", false);
-
+               
 
             }
         }
         
-        if (attack)
-        {
-            animator.SetBool("walk", false);
-            animator.SetBool("idle", false);
-            animator.SetBool("attack", true);
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("BrownOrk-Attack") &&
-   animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f)
-            {
-                animator.SetBool("attack", false);
-                
-                walk = true;
-            }
-        }
+        
     }
     bool isArrived(Vector3 pos, Vector3 target)
     {
@@ -146,41 +147,43 @@ public class BrownOrk : MonoBehaviour
         
         if (Mathf.Abs(rabit_pos.x - my_pos.x) < 5.0f && rabit_pos.y < my_pos.y + 2 && rabit_pos.y > my_pos.y - 1)
         {
-            
+            mode = Mode.Attack;
+            attack = true;
+            if (mode == Mode.Attack)
+            {
+
+                //Move towards rabit
+                if (my_pos.x < rabit_pos.x)
+                {
+                    direction = 1;
+                    sr.flipX = true;
+                    mode = Mode.GoToA;
+                }
+                else
+                {
+                    direction = -1;
+                    sr.flipX = false;
+                    mode = Mode.GoToB;
+                }
+
+            }
             //check launch time
             if (Time.time - last_carrot > 2.0f)
             {
                 //fix the time of last launch
+                
                 last_carrot = Time.time;
                 launchCarrot(direction);
             }
            
-            mode = Mode.Attack;
         }
         else
         {
             attack = false;
-            go = true;
+           go = true;
         }
 
-        if (mode == Mode.Attack)
-        {
-            attack = true;
-            //Move towards rabit
-            if (my_pos.x < rabit_pos.x)
-            {
-                direction = 1;
-                sr.flipX = true;
-                mode = Mode.GoToA;
-            }
-            else
-            {
-                direction = -1;
-                sr.flipX = false;
-                mode = Mode.GoToB;
-            }
-
-        }
+        
         if (!death && !attack)
         {
             if (ok)

@@ -27,11 +27,18 @@ public class HeroController : MonoBehaviour {
         l = GameObject.FindGameObjectsWithTag("Fruit").Length;
         lastRabit = this;
         loseLevel = false;
+        
     }
     public static float l;
+   static GameObject  heart3;
+      static  GameObject heart2;
+    static GameObject heart;
     void Start()
     {
         life = 3;
+         heart3 = GameObject.Find("Heart3");
+         heart2 = GameObject.Find("Heart2");
+         heart = GameObject.Find("Heart");
         SoundManager.Instance.setSoundOn(SoundManager.Instance.isSoundOn());
         MusicManager.Instance2.setSoundOn(MusicManager.Instance2.isSoundOn());
         musicSource = gameObject.AddComponent<AudioSource>();
@@ -72,6 +79,11 @@ public class HeroController : MonoBehaviour {
             bang = true;
         }
 
+    }
+    bool recover = false;
+    public void Recover()
+    {
+        recover = true;
     }
     static void SetNewParent(Transform obj, Transform new_parent)
     {
@@ -177,6 +189,7 @@ public class HeroController : MonoBehaviour {
         else
         {
             float value = 0;
+            
             if (!bang && !GreenOrk.col && !BrownOrk.col)
             {
                 value = Input.GetAxis("Horizontal");
@@ -290,31 +303,45 @@ public class HeroController : MonoBehaviour {
     public static Vector3 my_pos;
     public static void Health()
     {
-        GameObject h;
         if (life == 2)
         {
-            h = GameObject.Find("Heart3");
-            Destroy(h.gameObject);
-
+            heart3.gameObject.SetActive(false);
         }
         if (life == 1)
         {
-            h = GameObject.Find("Heart2");
-            Destroy(h.gameObject);
+            heart2.gameObject.SetActive(false);
 
         }
         if (life == 0)
         {
-            h = GameObject.Find("Heart");
-            Destroy(h.gameObject);
+            heart.gameObject.SetActive(false);
             loseLevel = true;
             life = 3;
+        }
+    }
+    public static void Life()
+    {
+        GameObject h;
+        if (life == 2)
+        {
+            heart3.gameObject.SetActive(true);
+            life++;
+        }
+        if (life == 1)
+        {
+
+            heart2.gameObject.SetActive(true);
+            life++;
         }
     }
     bool j = false;
     void FixedUpdate()
     {
-       
+        if (recover)
+        {
+            Life();
+            recover = false;
+        }
         Scene scene = SceneManager.GetActiveScene();
         string s = scene.name; // name of scene
         if (s != "MainScene")
