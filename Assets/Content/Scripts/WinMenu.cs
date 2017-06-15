@@ -66,6 +66,9 @@ public class WinMenu : MonoBehaviour
         HeroController.redCryst = false;
         HeroController.blueCryst = false;
         HeroController.greenCryst = false;
+        HeroController.redCryst2 = false;
+        HeroController.blueCryst2 = false;
+        HeroController.greenCryst2 = false;
         InterfaceCollect.coins_quantity = 0;
     }
 }

@@ -102,6 +102,9 @@ public class HeroController : MonoBehaviour {
     public static bool redCryst=false;
     public static bool blueCryst = false;
     public static bool greenCryst = false;
+    public static bool redCryst2 = false;
+    public static bool blueCryst2 = false;
+    public static bool greenCryst2 = false;
     void OnTriggerEnter2D(Collider2D collider)
     {
         Vector3 my_pos2 = this.transform.position;
@@ -153,23 +156,46 @@ public class HeroController : MonoBehaviour {
 
             }*/
         GameObject h;
+        Scene scene = SceneManager.GetActiveScene();
+        string s = scene.name;
         if (collider.gameObject.name == "RedCrystal")
         {
             h = GameObject.Find("CrystalEmpty");
-            redCryst = true;
+            if (s == "Level1")
+            {
+                redCryst = true;
+            }
+            if (s == "Level2")
+            {
+                redCryst2 = true;
+            }
             Destroy(h.gameObject);
         }
         if (collider.gameObject.name == "BlueCrystal")
         {
             h = GameObject.Find("CrystalEmpty2");
-            blueCryst = true;
+            if (s == "Level1")
+            {
+                blueCryst = true;
+            }
+            if (s == "Level2")
+            {
+                blueCryst2 = true;
+            }
             Destroy(h.gameObject);
 
         }
         if (collider.gameObject.name == "GreenCrystal")
         {
             h = GameObject.Find("CrystalEmpty3");
-            greenCryst = true;
+            if (s == "Level1")
+            {
+                greenCryst = true;
+            }
+            if (s == "Level2")
+            {
+                greenCryst2 = true;
+            }
             Destroy(h.gameObject);
 
         }

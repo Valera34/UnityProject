@@ -24,6 +24,23 @@ public class CrystalResults : MonoBehaviour {
             Destroy(h.gameObject);
 
         }
+        if (HeroController.redCryst2 == true)
+        {
+            h = GameObject.Find("CrystalEmptyM");
+            Destroy(h.gameObject);
+        }
+        if (HeroController.blueCryst2 == true)
+        {
+            h = GameObject.Find("CrystalEmptyM2");
+            Destroy(h.gameObject);
+
+        }
+        if (HeroController.greenCryst2 == true)
+        {
+            h = GameObject.Find("CrystalEmptyM3");
+            Destroy(h.gameObject);
+
+        }
     }
 	
 	// Update is called once per frame

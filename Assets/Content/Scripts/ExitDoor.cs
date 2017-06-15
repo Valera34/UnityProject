@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitDoor : MonoBehaviour {
     public GameObject win;
@@ -15,6 +16,7 @@ public class ExitDoor : MonoBehaviour {
     public AudioClip music3 = null;
     AudioSource musicSource3 = null;
          LevelStats stats;
+    LevelStats stats2;
     void Start()
     {
         musicSource3 = gameObject.AddComponent<AudioSource>();
@@ -26,6 +28,13 @@ public class ExitDoor : MonoBehaviour {
         {
             stats = new LevelStats();
         }
+        string str2 = PlayerPrefs.GetString("stats2", null);
+        stats2 = JsonUtility.FromJson<LevelStats>(str);
+        if (stats2 == null)
+        {
+            stats2 = new LevelStats();
+        }
+       
     }
     bool exit = false;
     void Update () {
@@ -65,19 +74,40 @@ public class ExitDoor : MonoBehaviour {
         }
             if (exit)
          {
-            if(HeroController.redCryst==true&& HeroController.blueCryst == true && HeroController.greenCryst == true)
+            Scene scene = SceneManager.GetActiveScene();
+            string s = scene.name;
+            if (s == "Level1")
             {
-                stats.hasCrystals = true;
+                if (HeroController.redCryst == true && HeroController.blueCryst == true && HeroController.greenCryst == true)
+                {
+                    stats.hasCrystals = true;
+                }
+
+                if (HeroController.count == HeroController.l)
+                {
+                    stats.hasAllFruits = true;
+                }
+                stats.levelPassed = true;
+                string str = JsonUtility.ToJson(stats);
+                PlayerPrefs.SetString("stats", str);
+                PlayerPrefs.Save();
             }
-            
-            if(HeroController.count== HeroController.l)
+            if (s == "Level2")
             {
-                stats.hasAllFruits = true;
+                if (HeroController.redCryst2 == true && HeroController.blueCryst2 == true && HeroController.greenCryst2 == true)
+                {
+                    stats2.hasCrystals = true;
+                }
+
+                if (HeroController.count == HeroController.l)
+                {
+                    stats2.hasAllFruits = true;
+                }
+                stats2.levelPassed = true;
+                string str2 = JsonUtility.ToJson(stats2);
+                PlayerPrefs.SetString("stats2", str2);
+                PlayerPrefs.Save();
             }
-            stats.levelPassed = true;
-        string str = JsonUtility.ToJson(stats);
-        PlayerPrefs.SetString("stats", str);
-        PlayerPrefs.Save();
             }
     }
     void OnTriggerEnter2D(Collider2D collider)

@@ -15,39 +15,14 @@ Platform assembly: C:\Users\mac\Documents\GitHub\UnityProject\Rabit_Data\Managed
 Loading C:\Users\mac\Documents\GitHub\UnityProject\Rabit_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Users\mac\Documents\GitHub\UnityProject\Rabit_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\mac\Documents\GitHub\UnityProject\Rabit_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.373 seconds
+- Completed reload, in  0.063 seconds
 Platform assembly: C:\Users\mac\Documents\GitHub\UnityProject\Rabit_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\mac\Documents\GitHub\UnityProject\Rabit_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 59Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 2.984468 ms
-NullReferenceException: Object reference not set to an instance of an object
-  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
+UnloadTime: 1.594838 ms
 NullReferenceException: Object reference not set to an instance of an object
   at HeroFollow.Update () [0x00000] in <filename unknown>:0 
  
@@ -664,27 +639,10 @@ NullReferenceException: Object reference not set to an instance of an object
 (Filename:  Line: -1)
 
 Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 6.675131 ms
+UnloadTime: 7.155340 ms
 
-Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 600.
-Total: 0.679012 ms (FindLiveObjects: 0.064555 ms CreateObjectMapping: 0.075533 ms MarkObjects: 0.477504 ms  DeleteObjects: 0.060374 ms)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at InterfaceCollect.Start () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 2.355636 ms
-
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 990.
-Total: 1.085166 ms (FindLiveObjects: 0.089385 ms CreateObjectMapping: 0.093828 ms MarkObjects: 0.844192 ms  DeleteObjects: 0.055931 ms)
-
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.400627 ms
-
-Unloading 210 unused Assets to reduce memory usage. Loaded Objects now: 675.
-Total: 1.370832 ms (FindLiveObjects: 0.081282 ms CreateObjectMapping: 0.094873 ms MarkObjects: 0.604002 ms  DeleteObjects: 0.588582 ms)
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 654.
+Total: 0.802385 ms (FindLiveObjects: 0.073965 ms CreateObjectMapping: 0.083636 ms MarkObjects: 0.492931 ms  DeleteObjects: 0.142181 ms)
 
 NullReferenceException: Object reference not set to an instance of an object
   at InterfaceCollect.Start () [0x00000] in <filename unknown>:0 
@@ -692,12 +650,319 @@ NullReferenceException: Object reference not set to an instance of an object
 (Filename:  Line: -1)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.860658 ms
+UnloadTime: 1.014873 ms
 
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 741.
-Total: 1.022439 ms (FindLiveObjects: 0.074226 ms CreateObjectMapping: 0.087555 ms MarkObjects: 0.808386 ms  DeleteObjects: 0.050703 ms)
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 1787.
+Total: 1.056952 ms (FindLiveObjects: 0.168056 ms CreateObjectMapping: 0.118136 ms MarkObjects: 0.737044 ms  DeleteObjects: 0.032147 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.333712 ms
+
+Unloading 373 unused Assets to reduce memory usage. Loaded Objects now: 867.
+Total: 3.276710 ms (FindLiveObjects: 0.109511 ms CreateObjectMapping: 0.084943 ms MarkObjects: 0.642953 ms  DeleteObjects: 2.437734 ms)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at HeroFollow.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.752464 ms
+
+Unloading 87 unused Assets to reduce memory usage. Loaded Objects now: 655.
+Total: 0.757691 ms (FindLiveObjects: 0.053056 ms CreateObjectMapping: 0.059068 ms MarkObjects: 0.524294 ms  DeleteObjects: 0.120488 ms)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at InterfaceCollect.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
 
 Setting up 3 worker threads for Enlighten.
-  Thread -> id: a14 -> priority: 1 
-  Thread -> id: 1968 -> priority: 1 
-  Thread -> id: 1a4c -> priority: 1 
+  Thread -> id: 2494 -> priority: 1 
+  Thread -> id: 22c0 -> priority: 1 
+  Thread -> id: 18c4 -> priority: 1 
